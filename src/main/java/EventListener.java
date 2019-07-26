@@ -17,16 +17,19 @@ public class EventListener {
     }
 
     public void run() {
+        while(!readyToQuit()){
+            if(shouldReply()){
+                reply();
+            }
+        }
     }
 
-    public Boolean readyToQuit() {
-        return null;
-    }
+    public Boolean readyToQuit() { return this.eventTracker.has("quit"); }
 
     public Boolean shouldReply() {
-        return null;
+        return this.eventTracker.has(this.messageToListenFor);
     }
 
-    public void reply() {
+    public void reply() { this.eventTracker.handle(this.messageToListenFor, ()->System.out.println(messageToReplyWith));
     }
 }

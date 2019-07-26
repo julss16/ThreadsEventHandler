@@ -5,6 +5,7 @@ public class EventTracker implements Tracker {
 
     private static EventTracker INSTANCE = new EventTracker();
 
+
     private Map<String, Integer> tracker;
 
     private EventTracker() {
@@ -12,10 +13,11 @@ public class EventTracker implements Tracker {
     }
 
     synchronized public static EventTracker getInstance() {
-        return null;
+        return INSTANCE;
     }
 
     synchronized public void push(String message) {
+        this.tracker.merge(message, 1, Integer::sum);
     }
 
     synchronized public Boolean has(String message) {
@@ -31,3 +33,4 @@ public class EventTracker implements Tracker {
         this.tracker = tracker;
     }
 }
+
